@@ -343,10 +343,21 @@ nav a:hover::after,nav a[aria-current]::after {
 }
 .authors {
   text-align:center;
-  font-size:13px;
+  font-size:16px;
   line-height:2.1;
   padding-top:18px;
   padding-bottom:40px
+}
+.author-names a {
+  display:inline-block;
+  white-space:nowrap;
+  text-decoration:underline;
+  text-decoration-color:#b8c6b1;
+  text-underline-offset:4px;
+  text-decoration-thickness:1px
+}
+.author-names a:hover,.author-names a:focus-visible {
+  text-decoration-color:currentColor
 }
 .authors p>span:not(.affiliations span) {
   margin:0 10px;
@@ -1320,7 +1331,7 @@ body.dialog-open {
   .authors {
     padding-top:15px;
     padding-bottom:27px;
-    font-size:10px
+    font-size:13px
   }
   .authors p>span:not(.affiliations span) {
     margin:0 5px
