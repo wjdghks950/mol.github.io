@@ -19,7 +19,7 @@ Open `http://localhost:8765`. No Node.js or build step is needed. Google Fonts i
 - Interactive results: the labeled **main backbone table** and the **dual-encoder rows** of the single-/multi-encoder comparison in `experiments.tex`. All 176 scores are included, including regressions. Deltas are recomputed from displayed scores, not copied from rounded/inconsistent delta rows.
 - Ablations: the displayed text-encoder, reserve, and k-ablation tables in `experiments.tex`. These are separate experimental settings and are not merged into the main results.
 - Figures: optimized WebP exports of the original PDFs in `paper/draft/figures/`. Hero and router diagrams are conceptual illustrations, not measured routing probabilities.
-- Paper download: a copy of the current `paper/draft/neurips_2024.pdf`. It is labeled as a research manuscript; no acceptance or publication venue is claimed.
+- Paper links point to the official arXiv abstract page: https://arxiv.org/abs/2610.09440. The bundled `assets/mixture-of-layers.pdf` remains a snapshot of `paper/draft/neurips_2024.pdf`.
 - `source-manifest.json` records SHA-256 hashes of the paper inputs used for this snapshot. Citation metadata describes the current 2026 manuscript and has no invented DOI or arXiv identifier.
 
 ### Draft inconsistencies handled deliberately

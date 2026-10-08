@@ -23,7 +23,7 @@
   <header class="site-header">
     <a class="brand" href="#" aria-label="Mixture of Layers home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m3 10 13-7 13 7-13 7Z"/><path d="m3 16 13 7 13-7M3 22l13 7 13-7"/></svg><span>MoL<span class="brand-dot">.</span></span></a>
     <nav aria-label="Main navigation"><a href="#motivation">Why layers?</a><a href="#method">Method</a><a href="#results">Results</a><a href="#insights">Insights</a></nav>
-    <a class="header-paper" href="assets/mixture-of-layers.pdf">Read the paper <span aria-hidden="true">↗</span></a>
+    <a class="header-paper" href="https://arxiv.org/abs/2610.09440">Read the paper <span aria-hidden="true">↗</span></a>
   </header>
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-title">
@@ -32,7 +32,7 @@
         <h1 id="hero-title">Mixture<br>of <em>Layers.</em></h1>
         <p class="paper-subtitle">Dynamic Layer Routing<br>for Visual Reasoning</p>
         <p class="hero-intro">The details are already there.<br>Let the question decide where to look.</p>
-        <div class="hero-actions"><a class="button primary" href="assets/mixture-of-layers.pdf">Read the paper <span aria-hidden="true">↗</span></a><a class="button secondary" href="#method">Explore the method <span aria-hidden="true">↓</span></a></div>
+        <div class="hero-actions"><a class="button primary" href="https://arxiv.org/abs/2610.09440">Read the paper <span aria-hidden="true">↗</span></a><a class="button secondary" href="#method">Explore the method <span aria-hidden="true">↓</span></a></div>
       </div>
       <div class="hero-visual">
         <div class="visual-heading"><span>INSIDE THE VISION ENCODER</span><span class="mono">01 — L</span></div>
@@ -101,7 +101,7 @@
       <div class="results-visual"><div class="chart-heading"><div><span class="mini-label">V* BENCHMARK</span><h3 id="chart-title">Accuracy, with a closer look.</h3></div><span class="chart-unit">Accuracy (%) · higher is better</span></div><div id="results-chart" class="results-chart" aria-label="V* accuracy comparison"></div><p id="result-takeaway" class="result-takeaway" aria-live="polite"></p></div>
       <div class="table-scroll" tabindex="0" role="region" aria-label="Benchmark accuracy table; scroll horizontally for all scores"><table id="results-table"><caption id="results-caption">Fine-grained benchmark accuracy (%)</caption><thead></thead><tbody></tbody></table></div>
       <p class="data-note" id="results-note">Scores from the manuscript’s main backbone comparison. Deltas are percentage points, calculated from the displayed scores. Results vary by benchmark and backbone.</p>
-      <noscript><p>The interactive comparison requires JavaScript. <a href="assets/results.csv">Download every benchmark score as CSV</a> or <a href="assets/mixture-of-layers.pdf">read the full results in the paper</a>.</p></noscript>
+      <noscript><p>The interactive comparison requires JavaScript. <a href="assets/results.csv">Download every benchmark score as CSV</a> or <a href="https://arxiv.org/abs/2610.09440">read the full results in the paper</a>.</p></noscript>
       <div class="multi-feature"><div><span class="eyebrow">Across encoders, too</span><h3>Route within.<br>Then combine.</h3><p>Apply hybrid routing independently to CLIP and DINOv2 w/ Txt, upsample the DINOv2 stream, and fuse the projected features into <strong>576 visual tokens</strong>.</p><p class="small">Against Interleaved-MoF, this full-system comparison improves V* by 7.99 points. HRBench4K and RealWorldQA decrease; encoder and fusion differences mean this is not a routing-only ablation.</p><button type="button" class="text-link" id="show-multi">Explore the multi-encoder results <span aria-hidden="true">↗</span></button></div><div class="multi-score"><div><span>INTERLEAVED-MOF</span><strong>82.35</strong></div><span class="score-arrow" aria-hidden="true">→</span><div><span>MoL HYBRID</span><strong>90.34</strong></div><p>V* accuracy (%) · Vicuna-13B backbone</p></div></div>
     </section>
 
@@ -120,7 +120,7 @@
       <div class="takeaway"><span class="mini-label">THE TAKEAWAY</span><p>Better visual reasoning can start with<br><em>choosing the right representation.</em></p><span>Adaptive depth is complementary to richer inputs and multiple encoders.</span></div>
     </section>
 
-    <section class="citation-section wrap" id="citation"><div><p class="eyebrow">Build on this work</p><h2>A new perspective<br>on visual <em>depth.</em></h2><div class="hero-actions"><a class="button primary" href="assets/mixture-of-layers.pdf">Paper PDF ↗</a><a class="button secondary" href="https://github.com/SStoica12/MoL">Repository · private ↗</a></div><p class="small">BibTeX for the current research manuscript. Code repository currently requires access.</p></div><div class="citation-box"><div><span class="mini-label">CITATION</span><button type="button" id="copy-citation">Copy BibTeX <span aria-hidden="true">⧉</span></button></div><pre id="bibtex">@misc{kim2026mixtureoflayers,
+    <section class="citation-section wrap" id="citation"><div><p class="eyebrow">Build on this work</p><h2>A new perspective<br>on visual <em>depth.</em></h2><div class="hero-actions"><a class="button primary" href="https://arxiv.org/abs/2610.09440">Paper on arXiv ↗</a><a class="button secondary" href="https://github.com/SStoica12/MoL">Repository · private ↗</a></div><p class="small">BibTeX for the current research manuscript. Code repository currently requires access.</p></div><div class="citation-box"><div><span class="mini-label">CITATION</span><button type="button" id="copy-citation">Copy BibTeX <span aria-hidden="true">⧉</span></button></div><pre id="bibtex">@misc{kim2026mixtureoflayers,
   title = {Mixture of Layers: Dynamic Layer
            Routing for Visual Reasoning},
   author = {Kim, Jeonghwan and Stoica, Sofia and
