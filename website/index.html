@@ -34,31 +34,76 @@
         <p class="hero-intro">The details are already there.<br>Let the question decide where to look.</p>
         <div class="hero-actions"><a class="button primary" href="https://arxiv.org/abs/2610.09440">Read the paper <span aria-hidden="true">↗</span></a><a class="button secondary" href="#method">Explore the method <span aria-hidden="true">↓</span></a></div>
       </div>
-      <div class="hero-visual">
-        <div class="visual-heading"><span>INSIDE THE VISION ENCODER</span><span class="mono">01 — L</span></div>
-        <svg class="layer-art" viewBox="0 0 590 440" role="img" aria-labelledby="layer-title layer-desc">
-          <title id="layer-title">One encoder. Many ways of seeing.</title><desc id="layer-desc">An illustrative stack of visual representations. A text-guided router selects intermediate layers and combines them into a query-relevant representation.</desc>
-          <defs>
-            <pattern id="patch-grid" width="31" height="31" patternUnits="userSpaceOnUse" patternTransform="matrix(1 .35 -1 .35 290 0)"><path d="M31 0H0V31" fill="none" stroke="#246d64" stroke-opacity=".24"/></pattern>
-            <linearGradient id="layer-fill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c4ded1"/><stop offset="1" stop-color="#e6eee2"/></linearGradient>
-          </defs>
-          <g class="stack-planes" stroke-linejoin="round">
-            <path class="plane ghost" d="m104 310 184-66 188 66-184 68Z"/>
-            <g class="plane-selected"><path class="plane" d="m104 266 184-66 188 66-184 68Z"/><path d="m104 266 184-66 188 66-184 68Z" fill="url(#patch-grid)"/></g>
-            <path class="plane ghost" d="m104 221 184-66 188 66-184 68Z"/>
-            <g class="plane-selected"><path class="plane" d="m104 176 184-66 188 66-184 68Z"/><path d="m104 176 184-66 188 66-184 68Z" fill="url(#patch-grid)"/></g>
-            <path class="plane ghost" d="m104 132 184-66 188 66-184 68Z"/>
-            <path class="plane top-plane" d="m104 88 184-66 188 66-184 68Z"/>
-            <path d="m104 88 184-66 188 66-184 68Z" fill="url(#patch-grid)"/>
-            <path d="m258 90 31-11 32 11-31 11Z" fill="#e18157"/><path d="m289 101 31-11 32 11-31 11Z" fill="#e18157" opacity=".55"/>
-          </g>
-          <g fill="none" stroke="#167466" stroke-width="1.5"><path d="M476 176h35v90h-35"/><path d="M511 221h33v132H338" stroke-dasharray="4 5"/><path d="M52 149v117h52" stroke-dasharray="4 5"/></g>
-          <g fill="#167466"><circle cx="476" cy="176" r="4"/><circle cx="476" cy="266" r="4"/><circle cx="338" cy="353" r="4"/></g>
-          <g font-family="Arial, sans-serif" font-size="11" fill="#636a63"><text x="17" y="92">LOCAL</text><text x="17" y="106">DETAILS</text><text x="16" y="314">SEMANTIC</text><text x="16" y="328">CONTEXT</text><text x="482" y="154" fill="#167466">SELECT</text><text x="418" y="376">WEIGHTED MIXTURE</text></g>
-          <rect x="110" y="335" width="226" height="38" rx="7" fill="#173f38"/><text x="223" y="359" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif" font-size="13">Instruction-conditioned router</text>
-          <path d="M223 407v-28" stroke="#173f38" stroke-width="1.5"/><text x="223" y="428" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="17" fill="#33433b">“What does the small sign say?”</text>
-        </svg>
-        <div class="visual-footer"><span><i class="legend-dot"></i> Query-relevant layers</span><span>Same visual token budget <span aria-hidden="true">↗</span></span></div>
+      <div class="hero-visual hybrid-hero">
+        <div class="visual-heading"><span>HYBRID ROUTING</span><span class="mono">PATCH × DEPTH</span></div>
+        <div class="hybrid-query"><span class="mini-label">TEXT QUERY</span><span>“What does the small sign say?”</span></div>
+        <div class="hybrid-input">
+          <div class="image-patch-grid" aria-label="An image divided into four example patches"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+          <div><strong>One image. Different patch needs.</strong><p>Keep each patch’s position. Choose its visual depth.</p></div>
+        </div>
+        <div class="hybrid-product"><span>Image-wide prior<sup>1 − β</sup></span><b aria-label="times">×</b><span>Patch evidence<sup>β</sup></span><span class="hybrid-product-note">→ top-k per patch</span></div>
+        <div class="hybrid-matrix" role="img" aria-labelledby="hybrid-title hybrid-description">
+          <span id="hybrid-title" class="sr-only">Each image patch samples its own mixture of vision layers.</span>
+          <span id="hybrid-description" class="sr-only">Conceptual hybrid top-2 routing, not measured model outputs. The text query conditions a shared image-level prior and patch-level evidence. Their weighted product selects layers 2 and 8 for patch A, 8 and 14 for B, 14 and 20 for C, and 2 and 20 for D. Colored branches combine the selected features within each patch. Dashed branches add that patch’s reserve-layer feature through a learned gate based on global-local disagreement. The result has one output token per original image patch.</span>
+          <div class="hybrid-lanes" aria-hidden="true">
+            <div class="depth-axis">
+              <div class="depth-heading">Layer /<br>global prior</div>
+              <div class="layer-meta"><span>L₂</span><i style="--prior:55%"></i></div>
+              <div class="layer-meta"><span>L₈</span><i style="--prior:90%"></i></div>
+              <div class="layer-meta"><span>L₁₄</span><i style="--prior:72%"></i></div>
+              <div class="layer-meta"><span>L₂₀</span><i style="--prior:38%"></i></div>
+              <div class="layer-meta reserve-label">Reserve<br>layer r</div>
+              <div class="layer-meta output-label">Output<br>tokens</div>
+            </div>
+              <div class="patch-lane" style="--patch-color:#277b65;--patch-rgb:39,123,101;--route-start:22px">
+                <div class="patch-heading"><span class="patch-key">A</span><span>Patch A</span></div>
+                <div class="patch-features"><div class="patch-trace"></div>
+                  <div class="depth-slot"><span class="patch-feature selected-feature">A<sub>2</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature selected-feature">A<sub>8</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature">A<sub>14</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature">A<sub>20</sub></span></div>
+                  <div class="depth-slot reserve-slot"><span class="patch-feature reserve-feature">A<sub>r</sub></span></div>
+                  <div class="depth-slot output-slot"><span class="patch-feature mixed-feature">A′</span></div>
+                </div>
+              </div>
+              <div class="patch-lane" style="--patch-color:#a35d3c;--patch-rgb:163,93,60;--route-start:66px">
+                <div class="patch-heading"><span class="patch-key">B</span><span>Patch B</span></div>
+                <div class="patch-features"><div class="patch-trace"></div>
+                  <div class="depth-slot"><span class="patch-feature">B<sub>2</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature selected-feature">B<sub>8</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature selected-feature">B<sub>14</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature">B<sub>20</sub></span></div>
+                  <div class="depth-slot reserve-slot"><span class="patch-feature reserve-feature">B<sub>r</sub></span></div>
+                  <div class="depth-slot output-slot"><span class="patch-feature mixed-feature">B′</span></div>
+                </div>
+              </div>
+              <div class="patch-lane" style="--patch-color:#486f94;--patch-rgb:72,111,148;--route-start:110px">
+                <div class="patch-heading"><span class="patch-key">C</span><span>Patch C</span></div>
+                <div class="patch-features"><div class="patch-trace"></div>
+                  <div class="depth-slot"><span class="patch-feature">C<sub>2</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature">C<sub>8</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature selected-feature">C<sub>14</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature selected-feature">C<sub>20</sub></span></div>
+                  <div class="depth-slot reserve-slot"><span class="patch-feature reserve-feature">C<sub>r</sub></span></div>
+                  <div class="depth-slot output-slot"><span class="patch-feature mixed-feature">C′</span></div>
+                </div>
+              </div>
+              <div class="patch-lane" style="--patch-color:#7c638f;--patch-rgb:124,99,143;--route-start:22px">
+                <div class="patch-heading"><span class="patch-key">D</span><span>Patch D</span></div>
+                <div class="patch-features"><div class="patch-trace"></div>
+                  <div class="depth-slot"><span class="patch-feature selected-feature">D<sub>2</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature">D<sub>8</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature">D<sub>14</sub></span></div>
+                  <div class="depth-slot"><span class="patch-feature selected-feature">D<sub>20</sub></span></div>
+                  <div class="depth-slot reserve-slot"><span class="patch-feature reserve-feature">D<sub>r</sub></span></div>
+                  <div class="depth-slot output-slot"><span class="patch-feature mixed-feature">D′</span></div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="hybrid-legend"><span><i class="selected-swatch"></i> Selected features</span><span><i class="reserve-swatch"></i> Gated reserve</span><span>4 patches → 4 tokens</span></div>
+        <div class="hybrid-equation">Each patch: <strong>(1 − γ<sub>n</sub>) · selected mixture + γ<sub>n</sub> · reserve</strong></div>
+        <p class="hybrid-caption">Illustrative top-2 routing. Global–local disagreement controls each patch’s reserve gate.</p>
       </div>
     </section>
     <div class="authors wrap">
